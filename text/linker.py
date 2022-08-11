@@ -18,7 +18,7 @@ def __linker(old, new, WIDTH, new_line=False):
 def get_width(points):
     max_x = max(points[-1][-1], key=lambda x: x["x"])["x"]
     min_x = min(points[-1][-1], key=lambda x: x["x"])["x"]
-    return max_x - min_x
+    return abs(max_x) + abs(min_x)
 
 
 def link(paths, size):

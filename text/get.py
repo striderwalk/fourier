@@ -10,6 +10,8 @@ def get_text():
 def get(win, input_text = None):
     # get size of win -- in order to limit size of text
     size = win.get_size()
+
+    # check for defult text 
     if not input_text:
         # limit time for user to answer 
         with futures.ThreadPoolExecutor(max_workers=1) as executor:
