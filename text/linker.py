@@ -7,9 +7,9 @@ def __linker(old, new, WIDTH, new_line=False):
         line_num += 1
         oldp = {"x": 0, "y": line_num * 125}
     else:
-        # oldp = {"x": get_width(old) + 10, "y": line_num * 125}
-        print(get_width(old), old[-1][-1][-1]["x"])
-        oldp = {"x": old[-1][-1][-1]["x"], "y": line_num * 125}
+        # last point should is heights in x
+        # shift by last point + gap
+        oldp = {"x": old[-1][-1][-1]["x"] + 5, "y": line_num * 125}
 
     # move letter into place
     for i in new:
@@ -19,11 +19,6 @@ def __linker(old, new, WIDTH, new_line=False):
     else:
         return __linker(old, new, i, WIDTH, new_line=True)
 
-
-def get_width(points):
-    max_x = max(points[-1][-1], key=lambda x: x["x"])["x"]
-    min_x = min(points[-1][-1], key=lambda x: x["x"])["x"]
-    return abs(max_x) - abs(min_x)
 
 
 def link(paths, size):
