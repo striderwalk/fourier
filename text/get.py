@@ -7,13 +7,13 @@ def get_text():
     return text
 
 
-def get(win, input_text = None):
+def get(win, input_text=None):
     # get size of win -- in order to limit size of text
     size = win.get_size()
 
-    # check for defult text 
+    # check for defult text
     if not input_text:
-        # limit time for user to answer 
+        # limit time for user to answer
         with futures.ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(get_text)
             try:
@@ -24,9 +24,9 @@ def get(win, input_text = None):
 
     # load letter vals
     import json
+
     with open("D:/Fourier/text/letters.json", "r") as file:
         letters = json.load(file)
-
 
     # divide into word and link to prevent words spliting over lines
     words = input_text.split()
@@ -38,3 +38,13 @@ def get(win, input_text = None):
     print(len(text), f"{words=}")
     return link(text, size)
 
+
+# import json
+# with open("D:/Fourier/text/letters.json", "r") as file:
+#     letters = json.load(file)
+
+# for i in letters:
+#     max_x = max(letters[i], key=lambda x: x["x"])["x"]
+#     min_x = min(letters[i], key=lambda x: x["x"])["x"]
+
+#     print(f"{i}, {max_x=}, {min_x=}, diff = {max_x-min_x}")

@@ -1,12 +1,17 @@
 def __linker(old, new, WIDTH, new_line=False):
     global line_num
     new_new = []
+
+    # check for new line
     if old[-1][-1][-1]["x"] > WIDTH - 100 or new_line:
         line_num += 1
         oldp = {"x": 0, "y": line_num * 125}
     else:
-        oldp = {"x": get_width(old) + 10, "y": line_num * 125}
+        # oldp = {"x": get_width(old) + 10, "y": line_num * 125}
+        print(get_width(old), old[-1][-1][-1]["x"])
+        oldp = {"x": old[-1][-1][-1]["x"], "y": line_num * 125}
 
+    # move letter into place
     for i in new:
         new_new.append({"x": oldp["x"] + i["x"], "y": i["y"] + oldp["y"]})
     if new_new[-1]["x"] < WIDTH - 100:
@@ -18,7 +23,7 @@ def __linker(old, new, WIDTH, new_line=False):
 def get_width(points):
     max_x = max(points[-1][-1], key=lambda x: x["x"])["x"]
     min_x = min(points[-1][-1], key=lambda x: x["x"])["x"]
-    return abs(max_x) + abs(min_x)
+    return abs(max_x) - abs(min_x)
 
 
 def link(paths, size):
@@ -31,10 +36,11 @@ def link(paths, size):
         # dline to check for new line
         dline = line_num
         points = __linker(lines, paths[i], WIDTH)
-        if dline != line_num: lines.append([])
+        if dline != line_num:
+            lines.append([])
         lines[-1].append(points)
 
-    # join all letters into one list    
+    # join all letters into one list
     paths = []
     for points in lines:
         for i in points:

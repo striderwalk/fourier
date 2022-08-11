@@ -51,6 +51,17 @@ def back(points):
     return [{"x": i["x"] - min_x, "y": i["y"]} for i in points]
 
 
+# https://stackoverflow.com/questions/9457832/python-list-rotation
+def __rotate(l, n):
+    return l[n:] + l[:n]
+
+
+def rotate(points):
+    max_x = max(points, key=lambda x: x["x"])
+    index = points.index(max_x)
+    return __rotate(points, index)
+
+
 def get(data):
     name, doc = data
     points = points_from_doc(doc, density=1, scale=5, offset=(0, 5))
@@ -59,6 +70,7 @@ def get(data):
     points.insert(0, points[-2])
     points = line(points, name)
     points = back(points)
+    points = rotate(points)
     doc.unlink()
     points = [{"x": i["x"] / 3, "y": i["y"] / 3} for i in points]
     return [name, points]
