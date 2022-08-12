@@ -12,7 +12,7 @@ from get_signal import get_signal
 from text import get
 from text import *
 from draw import draw, menu
-from conts import *
+from conts import WIDTH, HEIGHT
 
 
 def main():

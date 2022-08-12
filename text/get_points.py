@@ -75,9 +75,6 @@ def get(data):
     doc.unlink()
     # format points [(x, y)] ---> [{"x": x, "y": y}]
     points = [{"x": i[0], "y": i[1]} for i in points]
-    # join up ends - idk why i did it but im not gunna break it
-    points.append(points[0])
-    points.insert(0, points[-2])
     # put the letter in correct place / points in correct order
     points = line(points, name)
     points = back(points)
