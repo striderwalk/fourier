@@ -28,6 +28,7 @@ class Button:
     def draw(self, win):
         # draw button on screen
         pos = pygame.mouse.get_pos()
+        # draw a diffrent colour if mouse over
         if self.rect.collidepoint(pos):
             pygame.draw.rect(win, (20, 20, 25), self.rect, border_radius=3)
             img = font.render(self.text, True, (235, 235, 235))
@@ -53,16 +54,18 @@ class Button:
             return self.func, self.mode
 
     def update(self, others):
+        # move
         self.x += self.dx
         self.y += self.dy
         self.rect.topleft = (self.x, self.y)
 
+        # bounce of walls
         if 0 > self.x or self.x + self.xsize > WIDTH:
             self.dx *= -1
 
         if 0 > self.y or self.y + self.ysize > HEIGHT:
             self.dy *= -1
-
+        # bouce of others
         for other in others:
             if other is self:
                 continue

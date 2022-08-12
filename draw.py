@@ -12,6 +12,7 @@ from random import randint
 
 
 def draw_epicycles(win, x, y, time, fourier, rotation):
+    # draw each circle and line
     for i in range(len(fourier)):
         prevx = x
         prevy = y
@@ -34,24 +35,23 @@ def recr_len(lst):
 
 
 def draw(win, clock, indexs, epicycles, signal, mode):
-    # game loop
+    # draw loop
     run = True
     time = 0
     dt = (math.pi * 2) / len(signal)
     new = draw_epicycles(win, XOFF, YOFF, time, epicycles, 0)
-
+    # 2d list used to allow gaps (need for writing letters)
     line_points = [[new]]
 
     while run:
-
+        # find next point
         new = draw_epicycles(win, XOFF, YOFF, time, epicycles, 0)
-        line_points[-1].append(new)
-
+        # draw each line section
         for line in line_points:
 
             if len(line) > 1:
                 pygame.draw.lines(win, BLACK, False, line, 2)
-
+        # check in new section is needed
         if (
             indexs
             and len(line_points[-1]) > 1
@@ -60,9 +60,9 @@ def draw(win, clock, indexs, epicycles, signal, mode):
             )
             > 15
         ):
-            # indexs.pop(0)
-            line_points[-1].pop(-1)
             line_points.append([])
+        # add point to current line section
+        line_points[-1].append(new)
 
         if recr_len(line_points) > len(epicycles) or time / (math.pi * 2) == 1:
             time = 0

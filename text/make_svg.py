@@ -1,4 +1,6 @@
 """
+convert font to svg - "need" to extract points
+
 https://gist.github.com/CatherineH/499a312a04582a00e7559ac0c8f133fa
 """
 
@@ -168,14 +170,14 @@ def __make(face):
     return Path(*paths)
 
 
-def make(font):  #
+def make(font):  
+    # convert most used chars to svg
+    # set up font  
     face = Face(font)
     face.set_char_size(1)
     docs = []
     for i in string.printable[:94]:
         print(f"making {i}")
-        # if os.path.exists("./temp.svg"):
-        # os.remove("./temp.svg")
         face.load_char(i)
         wsvg(__make(face), filename="./temp.svg")
         with open("./temp.svg", "r") as file:
