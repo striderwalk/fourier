@@ -1,8 +1,5 @@
 import math
-from point import Point
 import numpy as np
-from tqdm import tqdm
-
 
 def dft(x):
     # compute the descrete fourier transform 

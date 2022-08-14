@@ -97,7 +97,6 @@ def menu(win, clock, font):
     ]
     buttons = []
     for index, i in enumerate(select_choices):
-        print(index)
         buttons.append(
             Button(
                 index * 150 + randint(0, 50),
@@ -114,7 +113,6 @@ def menu(win, clock, font):
     while not select_type:
         c += 1
         for i in buttons:
-            print(i.x, i.y, i.xsize)
             i.draw(win)
             i.update(buttons)
             if res := i.check_click():

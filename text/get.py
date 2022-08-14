@@ -35,9 +35,7 @@ def get(win, input_text=None):
         text.append(link([letters[i] for i in word], size)[-1])
         text.append(letters[" "])
     # finaly link words
-    print(len(text), f"{words=}")
     return link(text, size)
-
 
 # import json
 # with open("D:/Fourier/text/letters.json", "r") as file:

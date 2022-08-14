@@ -1,9 +1,7 @@
 from os import environ
-
 environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame  # import after disabling prompt
 import math
-from point import Point
 import random
 from fourier import dft
 
@@ -24,8 +22,8 @@ def main():
 
     run = True
     while run:
-        # data = menu(win, clock, font)
-        data = *get(win, "hello"), 0
+        # data = *get(win, "hello"), 0
+        data = menu(win, clock, font)
 
         indexs, lis, mode = data
         points = dft(lis)
