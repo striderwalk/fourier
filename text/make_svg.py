@@ -170,9 +170,9 @@ def __make(face):
     return Path(*paths)
 
 
-def make(font):  
+def make(font):
     # convert most used chars to svg
-    # set up font  
+    # set up font
     face = Face(font)
     face.set_char_size(1)
     docs = []

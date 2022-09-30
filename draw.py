@@ -33,6 +33,16 @@ def draw_epicycles(win, x, y, time, fourier, rotation):
 def recr_len(lst):
     return sum([len(i) for i in lst])
 
+def check_points(p1, p2):
+    # check if point are to close
+    point_dis = math.hypot(p1[0] - p2[0], p1[1] - p2[1])
+
+    if point_dis > 15:
+        return True
+
+    return False
+
+
 
 def draw(win, clock, indexs, epicycles, signal, mode):
     # draw loop
@@ -52,14 +62,8 @@ def draw(win, clock, indexs, epicycles, signal, mode):
             if len(line) > 1:
                 pygame.draw.lines(win, BLACK, False, line, 2)
         # check in new section is needed
-        if (
-            indexs
-            and len(line_points[-1]) > 1
-            and math.hypot(
-                line_points[-1][-2][0] - new[0], line_points[-1][-2][1] - new[1]
-            )
-            > 15
-        ):
+
+        if check_points(line_points[-1][-1], new):
             line_points.append([])
         # add point to current line section
         line_points[-1].append(new)

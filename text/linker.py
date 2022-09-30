@@ -27,7 +27,6 @@ def __shifter(old_points, new_points, WIDTH, new_line=False):
         return __shifter(old_points, new_points, i, WIDTH, new_line=True)
 
 
-
 def link(paths, size):
     # max width of text
     WIDTH, HEIGHT = size
@@ -48,6 +47,6 @@ def link(paths, size):
         for i in points:
             paths.extend(i)
     indexs = [0]
-    
+
     # paths = [{"x": i["x"], "y": i["y"]} for i in paths]
     return indexs, paths

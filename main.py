@@ -1,4 +1,5 @@
 from os import environ
+
 environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame  # import after disabling prompt
 import math
@@ -22,12 +23,12 @@ def main():
 
     run = True
     while run:
-        # data = *get(win, "hello"), 0
+        # data = *get(win, "hello, hi"), 0
         data = menu(win, clock, font)
-
         indexs, lis, mode = data
+
         points = dft(lis)
-        if draw(win, clock, indexs, points, data[1], mode) != "reset":
+        if draw(win, clock, indexs, points, lis, mode) != "reset":
             run = False
 
     pygame.quit()

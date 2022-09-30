@@ -1,8 +1,9 @@
 import math
 import numpy as np
 
+
 def dft(x):
-    # compute the descrete fourier transform 
+    # compute the descrete fourier transform
     if len(x) > 3000:
         print(f"WARNING: over 3000 points - {len(x)} points")
     x = [complex(i["x"], i["y"]) for i in x]

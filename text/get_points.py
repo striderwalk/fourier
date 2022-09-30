@@ -34,6 +34,7 @@ def points_from_doc(doc, density=5, scale=1, offset=0):
 
     return points
 
+
 """
 no longer from stacoverflow
 """
@@ -59,7 +60,10 @@ def back(points):
 # https://stackoverflow.com/questions/9457832/python-list-rotation
 def __rotate(l, n):
     return l[n:] + l[:n]
+
+
 ####
+
 
 def rotate(points):
     # last point in path should be highest in x

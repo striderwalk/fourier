@@ -37,6 +37,7 @@ def get(win, input_text=None):
     # finaly link words
     return link(text, size)
 
+
 # import json
 # with open("D:/Fourier/text/letters.json", "r") as file:
 #     letters = json.load(file)

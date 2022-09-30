@@ -15,7 +15,7 @@ def set():
         letter_points = executor.map(get_points.get, docs)
 
     # space normally null - just using a gap
-    letters[" "] = [{"x": 0, "y": 0}, {"x": 75.0, "y": 0}]
+    letters[" "] = [{"x": 0, "y": 0}, {"x": 80.0, "y": 0}]
     for name, points in letter_points:
         letters[name] = points
 

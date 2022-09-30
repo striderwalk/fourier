@@ -3,6 +3,7 @@ from fourier import dft
 import turtle
 import math
 
+
 def draw_circle(pen, center, radius, width):
     # move
     pen.up()
@@ -33,15 +34,21 @@ def draw_epicycles(pen, x, y, time, fourier, rotation):
         phase = fourier[i]["phase"]
         x += radius * math.cos(freq * time + phase + rotation)
         y += radius * math.sin(freq * time + phase + rotation)
-        draw_circle(pen,(prevx, prevy), radius, 1)
+        draw_circle(pen, (prevx, prevy), radius, 1)
         draw_line(pen, (x, y), (prevx, prevy))
 
     return (x, y)
 
+
 def main():
     global simpson_points
-    simpson_points = [{"x" :i["x"]*-1, "y":i["y"]*-1-100} for i in simpson_points[::2]]
+    simpson_points = [
+        {"x": i["x"] * -1, "y": i["y"] * -1 - 100} for i in simpson_points[::2]
+    ]
     pen = turtle.Turtle()
+    pen.hideturtle()
+    pen.speed(0)
+    turtle.delay(0)
     win = turtle.Screen()
 
     epicycles = dft(simpson_points)
@@ -52,17 +59,14 @@ def main():
     while True:
         pen.reset()
         win.tracer(False)
-        points.append(draw_epicycles(pen, 0,0,time, epicycles, 0))
-        for i in range(len(points)-1):
-            draw_line(pen, points[i], points[i+1])
+        points.append(draw_epicycles(pen, 0, 0, time, epicycles, 0))
+        for i in range(len(points) - 1):
+            draw_line(pen, points[i], points[i + 1])
         time += dt
         win.update()
 
     turtle.done()
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
