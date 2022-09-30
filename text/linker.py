@@ -24,7 +24,7 @@ def __shifter(old_points, new_points, WIDTH, new_line=False):
     if shifted_points[-1]["x"] < WIDTH - 100:
         return shifted_points
     else:
-        return __shifter(old_points, new_points, i, WIDTH, new_line=True)
+        return __shifter(old_points, new_points, WIDTH, new_line=True)
 
 
 def link(paths, size):

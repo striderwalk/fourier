@@ -13,7 +13,6 @@ from text import *
 from draw import draw, menu
 from conts import WIDTH, HEIGHT
 
-
 def main():
     # set up pygame
     pygame.init()

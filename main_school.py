@@ -4,6 +4,7 @@ import turtle
 import math
 
 
+
 def draw_circle(pen, center, radius, width):
     # move
     pen.up()
@@ -43,7 +44,7 @@ def draw_epicycles(pen, x, y, time, fourier, rotation):
 def main():
     global simpson_points
     simpson_points = [
-        {"x": i["x"] * -1, "y": i["y"] * -1 - 100} for i in simpson_points[::2]
+        {"x": i["x"] * -1, "y": i["y"] * -1 - 110} for i in simpson_points[::2]
     ]
     pen = turtle.Turtle()
     pen.hideturtle()
@@ -59,7 +60,11 @@ def main():
     while True:
         pen.reset()
         win.tracer(False)
+        pen.color("blue")
+        pen.pensize(1)
         points.append(draw_epicycles(pen, 0, 0, time, epicycles, 0))
+        pen.color("black")
+        pen.pensize(2)
         for i in range(len(points) - 1):
             draw_line(pen, points[i], points[i + 1])
         time += dt

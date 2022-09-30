@@ -1,10 +1,57 @@
 from .linker import link
 import concurrent.futures as futures
+import pygame
+from conts import WIDTH, HEIGHT
+import sys
 
 
-def get_text():
+def _get_text():
     text = input("What would you like to write? ")
     return text
+
+def get_text(win):
+    place_holder = "... write here ..."
+    text = place_holder
+    font = pygame.font.SysFont(None, 50)
+    while True:
+        pygame.display.flip()
+        win.fill((255,255,255))
+        if text == place_holder:
+            render_text = font.render(text, True, (200,200,200,200))
+        else:
+            render_text = font.render(text, True, (0,0,0))
+        x_pos = (WIDTH - render_text.get_size()[0])/2
+        y_pos = (HEIGHT -render_text.get_size()[1])/2
+        win.blit(render_text, (x_pos, y_pos))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                print("Bye!")
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    return text
+
+                elif event.key ==  pygame.K_BACKSPACE:
+                    text = text[:-1]
+                    if text == "":
+                        text = place_holder
+                elif event.key == pygame.K_SPACE:
+                    text += " "
+                else:
+                    if text == place_holder:
+                        text = ""
+                    try:
+                        if (char := event.unicode).isalpha():
+                            if event.mod and event.mod == pygame.K_LSHIFT:
+                                text += char.upper()
+                            else:
+                                text += char
+                    except ValueError: ## invaild key
+                        pass
+
 
 
 def get(win, input_text=None):
@@ -13,14 +60,7 @@ def get(win, input_text=None):
 
     # check for defult text
     if not input_text:
-        # limit time for user to answer
-        with futures.ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(get_text)
-            try:
-                input_text = future.result(100)
-            except futures.TimeoutError:
-                print("\ntook to long to answer text set to 'testing'")
-                input_text = "testing"
+        input_text= get_text(win)
 
     # load letter vals
     import json

@@ -37,7 +37,7 @@ def check_points(p1, p2):
     # check if point are to close
     point_dis = math.hypot(p1[0] - p2[0], p1[1] - p2[1])
 
-    if point_dis > 15:
+    if point_dis > 30:
         return True
 
     return False
