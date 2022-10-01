@@ -63,7 +63,7 @@ def draw(win, clock, indexs, epicycles, signal, mode):
                 pygame.draw.lines(win, BLACK, False, line, 2)
         # check in new section is needed
 
-        if check_points(line_points[-1][-1], new):
+        if check_points(line_points[-1][-1], new) and indexs != "NO GAP":
             line_points.append([])
         # add point to current line section
         line_points[-1].append(new)

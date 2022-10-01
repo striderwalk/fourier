@@ -32,7 +32,7 @@ def get_signal(win):
                             return_points.append(points[i])
                     x = return_points
                     x.append(x[0])
-                    return [False, [{"x": i[0], "y": i[1]} for i in x]]
+                    return ["NO GAP", [{"x": i[0], "y": i[1]} for i in x]]
                 # reset drawing
                 if event.key == pygame.K_r:
                     points = []

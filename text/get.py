@@ -10,6 +10,7 @@ def _get_text():
     return text
 
 def get_text(win):
+    clock = pygame.time.Clock()
     place_holder = "... write here ..."
     text = place_holder
     font = pygame.font.SysFont(None, 50)
@@ -34,23 +35,22 @@ def get_text(win):
                 if event.key == pygame.K_RETURN:
                     return text
 
-                elif event.key ==  pygame.K_BACKSPACE:
-                    text = text[:-1]
-                    if text == "":
-                        text = place_holder
                 elif event.key == pygame.K_SPACE:
                     text += " "
                 else:
                     if text == place_holder:
                         text = ""
-                    try:
-                        if (char := event.unicode).isalpha():
-                            if event.mod and event.mod == pygame.K_LSHIFT:
-                                text += char.upper()
-                            else:
-                                text += char
-                    except ValueError: ## invaild key
-                        pass
+                        
+                    if (char := event.unicode):
+                        text += char
+
+
+        if pygame.key.get_pressed()[pygame.K_BACKSPACE] and text != place_holder:
+            text = text[:-1]
+            if text == "":
+                text = place_holder
+            clock.tick(15)
+
 
 
 
