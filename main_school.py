@@ -1,8 +1,8 @@
-from signal import simpson_points
+from signal import simpson_points as points
 from fourier import dft
+from text import get
 import turtle
 import math
-
 
 
 def draw_circle(pen, center, radius, width):
@@ -41,32 +41,44 @@ def draw_epicycles(pen, x, y, time, fourier, rotation):
     return (x, y)
 
 
+def find_dis(p1, p2):
+    return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
+
+
 def main():
-    global simpson_points
-    simpson_points = [
-        {"x": i["x"] * -1, "y": i["y"] * -1 - 110} for i in simpson_points[::2]
-    ]
+
     pen = turtle.Turtle()
     pen.hideturtle()
     pen.speed(0)
     turtle.delay(0)
-    win = turtle.Screen()
 
-    epicycles = dft(simpson_points)
+    win = turtle.Screen()
+    _, points = get(None, win.textinput, ["what would you like to write", "hello"])
+    points = [{"x": i["x"], "y": i["y"] * -1 - 110} for i in points[::3]]
+    epicycles = dft(points)
 
     time = 0
-    dt = (math.pi * 2) / len(simpson_points)
-    points = []
+    dt = (math.pi * 2) / len(points)
+    pen.reset()
+    win.tracer(False)
+    pen.color("blue")
+    pen.pensize(1)
+    pointss = [[draw_epicycles(pen, 0, 0, time, epicycles, 0)]]
     while True:
         pen.reset()
         win.tracer(False)
         pen.color("blue")
         pen.pensize(1)
-        points.append(draw_epicycles(pen, 0, 0, time, epicycles, 0))
+        x = draw_epicycles(pen, 0, 0, time, epicycles, 0)
+        if find_dis(x, pointss[-1][-1]) > 25:
+            pointss.append([])
+        pointss[-1].append(x)
+
         pen.color("black")
         pen.pensize(2)
-        for i in range(len(points) - 1):
-            draw_line(pen, points[i], points[i + 1])
+        for points in pointss:
+            for i in range(len(points) - 1):
+                draw_line(pen, points[i], points[i + 1])
         time += dt
         win.update()
 
@@ -74,4 +86,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()

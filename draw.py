@@ -33,6 +33,7 @@ def draw_epicycles(win, x, y, time, fourier, rotation):
 def recr_len(lst):
     return sum([len(i) for i in lst])
 
+
 def check_points(p1, p2):
     # check if point are to close
     point_dis = math.hypot(p1[0] - p2[0], p1[1] - p2[1])
@@ -41,7 +42,6 @@ def check_points(p1, p2):
         return True
 
     return False
-
 
 
 def draw(win, clock, indexs, epicycles, signal, mode):

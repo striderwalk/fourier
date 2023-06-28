@@ -1,6 +1,5 @@
 from .linker import link
 import concurrent.futures as futures
-import pygame
 from conts import WIDTH, HEIGHT
 import sys
 
@@ -9,20 +8,23 @@ def _get_text():
     text = input("What would you like to write? ")
     return text
 
+
 def get_text(win):
+    import pygame
+
     clock = pygame.time.Clock()
     place_holder = "... write here ..."
     text = place_holder
     font = pygame.font.SysFont(None, 50)
     while True:
         pygame.display.flip()
-        win.fill((255,255,255))
+        win.fill((255, 255, 255))
         if text == place_holder:
-            render_text = font.render(text, True, (200,200,200,200))
+            render_text = font.render(text, True, (200, 200, 200, 200))
         else:
-            render_text = font.render(text, True, (0,0,0))
-        x_pos = (WIDTH - render_text.get_size()[0])/2
-        y_pos = (HEIGHT -render_text.get_size()[1])/2
+            render_text = font.render(text, True, (0, 0, 0))
+        x_pos = (WIDTH - render_text.get_size()[0]) / 2
+        y_pos = (HEIGHT - render_text.get_size()[1]) / 2
         win.blit(render_text, (x_pos, y_pos))
 
         for event in pygame.event.get():
@@ -40,10 +42,9 @@ def get_text(win):
                 else:
                     if text == place_holder:
                         text = ""
-                        
-                    if (char := event.unicode):
-                        text += char
 
+                    if char := event.unicode:
+                        text += char
 
         if pygame.key.get_pressed()[pygame.K_BACKSPACE] and text != place_holder:
             text = text[:-1]
@@ -52,15 +53,30 @@ def get_text(win):
             clock.tick(15)
 
 
+def _use_input_func(input_func, input_args, input_kwargs):
+    input_text = input_func(*input_args, **input_kwargs)
+    while not input_text:
+
+        if input_text == None:
+            print("bye bye")
+            sys.exit()
+        input_text = input_func(*input_args, **input_kwargs)
+
+    return input_text
 
 
-def get(win, input_text=None):
+def get(win, input_func=None, input_args=[], input_kwargs={}):
     # get size of win -- in order to limit size of text
-    size = win.get_size()
+    if input_func is None:
+        size = win.get_size()
+    else:
+        size = (WIDTH, HEIGHT)
 
     # check for defult text
-    if not input_text:
-        input_text= get_text(win)
+    if input_func is None:
+        input_text = get_text(win)
+    else:
+        input_text = _use_input_func(input_func, input_args, input_kwargs)
 
     # load letter vals
     import json
